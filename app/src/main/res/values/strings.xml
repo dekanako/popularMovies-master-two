@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top_Rated</string>
+    <string name="query_preferences">query_preferences</string>
+    <string name="overview_string">Overview</string>
+    <string name="favourites">favourites</string>
+    <string name="undo">undo</string>
+    <string name="message">undo remove from favourites</string>
+    <string-array name="query_array">
+        <item>@string/popular</item>
+        <item>@string/top_rated</item>
+        <item>@string/favourites</item>
+    </string-array>
+</resources>
