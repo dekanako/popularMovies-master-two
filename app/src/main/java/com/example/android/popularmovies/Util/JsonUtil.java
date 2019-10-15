@@ -2,9 +2,9 @@ package com.example.android.popularmovies.Util;
 
 
 
-import com.example.android.popularmovies.Model.Movie;
-import com.example.android.popularmovies.Model.Review;
-import com.example.android.popularmovies.Model.Trailer;
+import com.example.android.popularmovies.data.Movie;
+import com.example.android.popularmovies.data.Review;
+import com.example.android.popularmovies.data.Trailer;
 
 import org.json.JSONArray;
 import org.json.JSONException;

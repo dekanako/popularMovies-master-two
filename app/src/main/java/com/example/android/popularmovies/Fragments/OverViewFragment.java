@@ -1,14 +1,14 @@
 package com.example.android.popularmovies.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.popularmovies.Model.Movie;
+
 import com.example.android.popularmovies.R;
+import com.example.android.popularmovies.data.Movie;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

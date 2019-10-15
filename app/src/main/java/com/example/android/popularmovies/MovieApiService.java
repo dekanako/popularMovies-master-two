@@ -1,7 +1,9 @@
 package com.example.android.popularmovies;
 
 
-import com.example.android.popularmovies.Model.Movie;
+
+
+import com.example.android.popularmovies.data.Movie;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface ApiService {
+public interface MovieApiService {
 
     String BASE_MOVIE_URL ="https://api.themoviedb.org/3/movie";
 

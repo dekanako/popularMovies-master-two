@@ -2,7 +2,6 @@ package com.example.android.popularmovies;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.android.popularmovies.Model.Movie;
+
 import com.example.android.popularmovies.Util.NetworkingUtil;
 import com.example.android.popularmovies.Util.StringCheck;
+import com.example.android.popularmovies.data.Movie;
 
 import java.util.List;
 
@@ -75,6 +75,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     Intent intent = new Intent(mContext,DetailActivity.class);
                     Movie movie = mMovies.get(getAdapterPosition());
                     intent.putExtra(Intent.EXTRA_INTENT,movie);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }
             });

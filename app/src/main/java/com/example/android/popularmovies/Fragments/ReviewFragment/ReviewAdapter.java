@@ -5,8 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.popularmovies.Model.Review;
+
 import com.example.android.popularmovies.R;
+import com.example.android.popularmovies.data.Review;
 
 import java.util.List;
 

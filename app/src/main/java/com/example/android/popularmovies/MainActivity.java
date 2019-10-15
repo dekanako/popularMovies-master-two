@@ -17,7 +17,6 @@ import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,18 +26,18 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.example.android.popularmovies.Model.Movie;
-import com.example.android.popularmovies.Model.MovieContainer;
 import com.example.android.popularmovies.Room.AppDBRoom;
 import com.example.android.popularmovies.Util.JsonUtil;
 import com.example.android.popularmovies.Util.NetworkingUtil;
-import com.facebook.stetho.Stetho;
-import com.google.gson.Gson;
+import com.example.android.popularmovies.data.Movie;
+import com.example.android.popularmovies.di.MoviesApplication;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -58,7 +57,9 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar mProgressBar;
     private static final String TAG = MainActivity.class.getName();
 
-    private AppDBRoom mAppDBRoom;
+    @Inject
+    public AppDBRoom mAppDBRoom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initTimberLogging();
 
+        ((MoviesApplication)getApplication()).getAppComponent().injectActivity(this);
+        
         mOopsView = findViewById(R.id.ops_id);
         mRecyclerView = findViewById(R.id.recycle_view_id);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
@@ -121,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if (getString(p).equals(getString(R.string.favourites)))
         {
-            mAppDBRoom = AppDBRoom.getInstance(this);
+
             mAppDBRoom.dao().getAllMovie().observe(this, new Observer<List<Movie>>() {
                 @Override
                 public void onChanged(List<Movie> movies)
@@ -234,7 +237,7 @@ public class MainActivity extends AppCompatActivity
                     }
                     else
                     {
-                        mAppDBRoom = AppDBRoom.getInstance(getBaseContext());
+
                         return null;
 
                     }

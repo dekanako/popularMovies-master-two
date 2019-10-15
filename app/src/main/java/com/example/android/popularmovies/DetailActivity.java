@@ -23,22 +23,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.android.popularmovies.Fragments.OverViewFragment;
 import com.example.android.popularmovies.Fragments.ReviewFragment.ReviewFragment;
-import com.example.android.popularmovies.Model.Movie;
+
+
 import com.example.android.popularmovies.Room.AppDBRoom;
 import com.example.android.popularmovies.Room.AppExecutors;
 import com.example.android.popularmovies.Util.JsonUtil;
 import com.example.android.popularmovies.Util.NetworkingUtil;
+import com.example.android.popularmovies.data.Movie;
+import com.example.android.popularmovies.di.MoviesApplication;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.IOException;
 import java.net.URL;
+
+import javax.inject.Inject;
 
 public class DetailActivity extends AppCompatActivity
     implements LoaderManager.LoaderCallbacks<String>
@@ -51,7 +55,10 @@ public class DetailActivity extends AppCompatActivity
 
     private ImageView mBackgroundImage;
     private ImageView playButtonImageView;
-    private AppDBRoom mAppDBRoom;
+
+    @Inject
+    AppDBRoom mAppDBRoom;
+
     private MyPagerAdapter adapterViewPager;
 
     @Override
@@ -60,8 +67,7 @@ public class DetailActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        mAppDBRoom = AppDBRoom.getInstance(getApplicationContext());
-
+        ((MoviesApplication)getApplication()).getAppComponent().injectDetailActivity(this);
         //initializing the views
         mBackgroundImage = findViewById(R.id.background_image_id);
         playButtonImageView = findViewById(R.id.play_trailer_youtube_button);
@@ -79,9 +85,7 @@ public class DetailActivity extends AppCompatActivity
             {
                 if (mMovie.getTrailersArray().length>0)
                 {
-
                     showTrailersAlertDialog(v);
-
                 }
                 else
                 {
@@ -323,8 +327,6 @@ public class DetailActivity extends AppCompatActivity
                 default:
                     return "";
             }
-
         }
-
     }
 }

@@ -1,6 +1,6 @@
 package com.example.android.popularmovies.Room;
 
-import com.example.android.popularmovies.Model.Movie;
+import com.example.android.popularmovies.data.Movie;
 
 import java.util.List;
 
