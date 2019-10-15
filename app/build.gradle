@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -47,6 +51,9 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.22'
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.22'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.22'
+
+    //ViewModel and LiveDate
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
 
 }

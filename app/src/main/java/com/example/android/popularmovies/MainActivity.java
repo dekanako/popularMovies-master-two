@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
@@ -26,7 +28,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.example.android.popularmovies.Room.AppDBRoom;
+import com.example.android.popularmovies.data.Room.AppDBRoom;
 import com.example.android.popularmovies.Util.JsonUtil;
 import com.example.android.popularmovies.Util.NetworkingUtil;
 import com.example.android.popularmovies.data.Movie;
@@ -68,7 +70,9 @@ public class MainActivity extends AppCompatActivity
         initTimberLogging();
 
         ((MoviesApplication)getApplication()).getAppComponent().injectActivity(this);
-        
+
+
+
         mOopsView = findViewById(R.id.ops_id);
         mRecyclerView = findViewById(R.id.recycle_view_id);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
@@ -114,8 +118,7 @@ public class MainActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         if (getString(p).equals(getString(R.string.popular)))
         {
-            bundle.putString(Intent.EXTRA_INTENT,NetworkingUtil.buildURLForListOfPopularMovies(1).toString());
-            chooseLoaderAndStartLoading(POPULAR_LOADER_ID,bundle);
+
         }
         else if (getString(p).equals(getString(R.string.top_rated)))
         {

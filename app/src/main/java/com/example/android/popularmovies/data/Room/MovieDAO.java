@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.Room;
+package com.example.android.popularmovies.data.Room;
 
 import com.example.android.popularmovies.data.Movie;
 

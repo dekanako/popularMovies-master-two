@@ -4,9 +4,8 @@ import android.app.Application;
 
 import androidx.room.Room;
 
-import com.example.android.popularmovies.Room.AppDBRoom;
-import com.example.android.popularmovies.Room.MovieDAO;
-import com.example.android.popularmovies.data.Movie;
+import com.example.android.popularmovies.data.Room.AppDBRoom;
+import com.example.android.popularmovies.data.Room.MovieDAO;
 
 import javax.inject.Singleton;
 

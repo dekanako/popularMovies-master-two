@@ -3,7 +3,6 @@ package com.example.android.popularmovies.di.modules;
 
 
 import com.example.android.popularmovies.MovieApiService;
-import com.example.android.popularmovies.Room.AppDBRoom;
 
 import javax.inject.Singleton;
 

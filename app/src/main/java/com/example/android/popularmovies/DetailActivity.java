@@ -30,8 +30,8 @@ import com.example.android.popularmovies.Fragments.OverViewFragment;
 import com.example.android.popularmovies.Fragments.ReviewFragment.ReviewFragment;
 
 
-import com.example.android.popularmovies.Room.AppDBRoom;
-import com.example.android.popularmovies.Room.AppExecutors;
+import com.example.android.popularmovies.data.Room.AppDBRoom;
+import com.example.android.popularmovies.data.Room.AppExecutors;
 import com.example.android.popularmovies.Util.JsonUtil;
 import com.example.android.popularmovies.Util.NetworkingUtil;
 import com.example.android.popularmovies.data.Movie;

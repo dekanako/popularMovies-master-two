@@ -1,7 +1,4 @@
-package com.example.android.popularmovies.Room;
-
-import android.os.Handler;
-import android.os.Looper;
+package com.example.android.popularmovies.data.Room;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
