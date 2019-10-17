@@ -16,57 +16,12 @@ import java.util.List;
 public class JsonUtil
 {
     public static final String AUTHOR = "author";
-    private static final String ID = "id";
-    private static final String RATE = "vote_average";
-    private static final String TITLE = "title";
-    private static final String POSTER_PATH = "poster_path";
-    private static final String OVERVIEW = "overview";
-    private static final String BACKGROUND_IMAGE = "backdrop_path";
-    private static final String RELEASE_DATE = "release_date";
-
-    private static final String TAG = JsonUtil.class.getName();
 
     public static final String VIDEOS = "videos";
     public static final String RESULTS = "results";
     public static final String TRAILERS_KEY = "key";
     public static final String TRAILER_NAME = "name";
     public static final String CONTENT = "content";
-
-    public static  List<Movie> extractMovieList(String json)
-    {
-
-        List<Movie> movie = new ArrayList<>();
-        try
-        {
-            JSONObject baseJsonObject = new JSONObject(json);
-            JSONArray array = baseJsonObject.getJSONArray("results");
-
-            for (int x = 0;x<array.length();x++)
-            {
-                JSONObject jsonObject = array.getJSONObject(x);
-                int movieIDExtracted = jsonObject.getInt(ID);
-
-                double movieRateExtracted = jsonObject.getDouble(RATE);
-
-                String movieTitleExtracted = jsonObject.getString(TITLE);
-
-                String posterPathExtracted = jsonObject.getString(POSTER_PATH);
-
-                String overView = jsonObject.getString(OVERVIEW);
-
-                String coverImage = jsonObject.getString(BACKGROUND_IMAGE);
-
-                String date = jsonObject.getString(RELEASE_DATE);
-
-                movie.add(new Movie(posterPathExtracted,movieTitleExtracted,movieRateExtracted,movieIDExtracted,coverImage,overView,date));
-            }
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-        return movie;
-    }
 
     public static String extractTrailerPathAndAddTheTrailersToTheMovieObject(String json, Movie movie)
     {
