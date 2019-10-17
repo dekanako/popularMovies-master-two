@@ -90,6 +90,9 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         Glide.with(mContext).load(NetworkingUtil.buildPhotoURL(mMovies.get(position).getImageLink(),NetworkingUtil.POSTER_IMAGE_W500)).into(holder.mPosterView);
     }
 
-
+    public void clearAdapter(){
+        mMovies.clear();
+        notifyDataSetChanged();
+    }
 
 }

@@ -48,42 +48,8 @@ public class NetworkingUtil
     public static final String REVIEWS_PATH = "reviews";
 
     // "https://api.themoviedb.org/3/movie/458156?api_key=90429cbb0771760ab50be543df397f62&language=en-US\n"
-   // public static final String Quality_2
-    public static URL buildURLForListOfPopularMovies(int page)
-    {
-        Uri movieUri =Uri.parse(BASE_MOVIE_URL).buildUpon()
-                .appendEncodedPath(POPULAR_PATH)
-                .appendQueryParameter(API_KEY,API_KEY_VALUE)
-                .appendQueryParameter(PAGE,String.valueOf(page))
-                .appendQueryParameter(LANGUAGE,LANGUAGE_VALUE)
-                .build();
 
-        try
-        {
-            return new URL(movieUri.toString());
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
-    public static URL buildURLForListOfTopRatedMovies(int page)
-    {
-        Uri movieUri =Uri.parse(BASE_MOVIE_URL).buildUpon()
-                .appendEncodedPath(TOP_RATED)
-                .appendQueryParameter(API_KEY,API_KEY_VALUE)
-                .appendQueryParameter(PAGE,String.valueOf(page))
-                .appendQueryParameter(LANGUAGE,LANGUAGE_VALUE)
-                .build();
-        try {
-            return new URL(movieUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public static Uri.Builder buildURLForOneMovie(int movieID)
     {

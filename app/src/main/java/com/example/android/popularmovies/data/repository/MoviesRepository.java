@@ -1,13 +1,18 @@
 package com.example.android.popularmovies.data.repository;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.popularmovies.MovieApiService;
+import com.example.android.popularmovies.QueryPreferences;
+import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.data.MovieContainer;
 import com.example.android.popularmovies.data.Room.AppDBRoom;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,18 +33,18 @@ public class MoviesRepository {
     public MoviesRepository(AppDBRoom room, MovieApiService movieApiService) {
         mRoom = room;
         mMovieApiService = movieApiService;
+
     }
 
 
-    public LiveData<List<Movie>>getPopularMovies(String page){
-        final MutableLiveData<List<Movie>> moviesLiveDate = new MutableLiveData<>();
+    public MutableLiveData<List<Movie>>getPopularMovies(String page){
+
+        MutableLiveData<List<Movie>> mutableLiveData = new MutableLiveData<>();
+
         mMovieApiService.getMovies(MovieApiService.POPULAR_PATH,MovieApiService.API_KEY,"1",MovieApiService.ENG_LANG_RESULT).enqueue(new Callback<MovieContainer>() {
             @Override
             public void onResponse(@NonNull Call<MovieContainer> call, @NonNull Response<MovieContainer> response) {
-                Timber.d("RESPONSE MESSAGE :%s", response.message());
-                Timber.d("RESPONSE CODE :%s", response.code());
-
-                moviesLiveDate.setValue(response.body().getMovieList());
+                mutableLiveData.setValue(response.body().getMovieList());
             }
 
             @Override
@@ -47,19 +52,18 @@ public class MoviesRepository {
                 Timber.e(t);
             }
         });
-        return moviesLiveDate;
+
+
+        return mutableLiveData;
     }
 
 
-    public LiveData<List<Movie>>getTopRatedMovies(String page){
-        final MutableLiveData<List<Movie>> moviesLiveDate = new MutableLiveData<>();
+    public MutableLiveData<List<Movie>>getTopRatedMovies(String page){
+        MutableLiveData<List<Movie>> mutableLiveData = new MutableLiveData<>();
         mMovieApiService.getMovies(MovieApiService.TOP_RATED_PATH,MovieApiService.API_KEY,"1",MovieApiService.ENG_LANG_RESULT).enqueue(new Callback<MovieContainer>() {
             @Override
             public void onResponse(Call<MovieContainer> call, Response<MovieContainer> response) {
-                Timber.d("RESPONSE MESSAGE :%s", response.message());
-                Timber.d("RESPONSE CODE :%s", response.code());
-
-                moviesLiveDate.setValue(response.body().getMovieList());
+                mutableLiveData.setValue(response.body().getMovieList());
             }
 
             @Override
@@ -67,10 +71,28 @@ public class MoviesRepository {
                 Timber.e(t);
             }
         });
-        return moviesLiveDate;
+        return mutableLiveData;
     }
 
     public LiveData<List<Movie>>getFavouriteMovies(){
         return mRoom.dao().getAllMovie();
     }
+
+    public LiveData<List<Movie>> getOneOfThem(Application application) {
+
+        Timber.d("ON OF THEM IS " + QueryPreferences.getStoredTypeOfQuery(application));
+
+        if (application.getString(R.string.popular).equals(QueryPreferences.getStoredTypeOfQuery(application))){
+            return getPopularMovies("1");
+        }else if (application.getString(R.string.top_rated).equals(QueryPreferences.getStoredTypeOfQuery(application))){
+            return getTopRatedMovies("1");
+        }else {
+            return getFavouriteMovies();
+        }
+    }
+    /**
+     * testing purposes
+     */
+
+
 }
