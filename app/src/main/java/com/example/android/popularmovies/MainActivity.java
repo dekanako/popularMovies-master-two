@@ -1,7 +1,7 @@
 package com.example.android.popularmovies;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +20,13 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.example.android.popularmovies.Util.AppUtil;
 import com.example.android.popularmovies.data.Room.AppDBRoom;
 
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.di.MoviesApplication;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +61,7 @@ public class MainActivity extends AppCompatActivity
 
         ((MoviesApplication)getApplication()).getAppComponent().injectActivity(this);
 
-        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-
-        mViewModel.getListOfMovies().observe(this,(this::showTheReceivedList));
+        queryIfThereIsConnection();
 
         mOopsView = findViewById(R.id.ops_id);
         mRecyclerView = findViewById(R.id.recycle_view_id);
@@ -101,8 +102,18 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-
+    private void queryIfThereIsConnection() {
+        if (AppUtil.isConnectedToNetwork(this)){
+            mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+            mViewModel.getListOfMovies().observe(this,(this::showTheReceivedList));
+        }else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("there is no connection please connect and try again")
+                    .setTitle("Problems while connecting")
+                    .setPositiveButton("ok", (dialog, which) -> queryIfThereIsConnection());
+            alert.show();
+        }
+    }
 
 
     @Override
@@ -201,30 +212,6 @@ public class MainActivity extends AppCompatActivity
 
         mMovieAdapter = new MovieAdapter(mMovies,getBaseContext());
         mRecyclerView.setAdapter(mMovieAdapter);
-    }
-
-    public boolean isThereConnection()
-    {
-
-        ConnectivityManager connectivityManager =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getActiveNetworkInfo() == null )
-        {
-            if (!mSelectedQuery.equals(getString(R.string.favourites)))
-            {
-                mRecyclerView.setVisibility(View.INVISIBLE);
-                mOopsView.setVisibility(View.VISIBLE);
-            }
-
-            return false;
-        }
-        else
-        {
-
-            mOopsView.setVisibility(View.INVISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-
-            return true;
-        }
     }
 
     private void initTimberLogging() {
