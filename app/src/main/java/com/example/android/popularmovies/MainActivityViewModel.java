@@ -4,7 +4,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.data.repository.MoviesRepository;
@@ -24,11 +23,11 @@ public class MainActivityViewModel extends AndroidViewModel {
         super(application);
         ((MoviesApplication)getApplication()).getAppComponent().injectViewModel(this);
 
-        listOfMovies = mRepository.getOneOfThem(getApplication());
+        listOfMovies = mRepository.getListOfMoviesWithRespectToUserPreferences(getApplication());
     }
 
     public void refreshForNewData(){
-        listOfMovies = mRepository.getOneOfThem(getApplication());
+        listOfMovies = mRepository.getListOfMoviesWithRespectToUserPreferences(getApplication());
     }
     public LiveData<List<Movie>> getListOfMovies() {
         return listOfMovies;

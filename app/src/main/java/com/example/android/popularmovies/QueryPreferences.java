@@ -10,8 +10,6 @@ public class QueryPreferences
 
     public static void setStoredTypeOfQuery(Context context, String passedValue)
     {
-
-
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(QUERY_KEY,passedValue).apply();
     }
     public static String getStoredTypeOfQuery(Context context)

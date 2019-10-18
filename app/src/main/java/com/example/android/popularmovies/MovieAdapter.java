@@ -68,16 +68,12 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             mPosterView = itemView.findViewById(R.id.poster_view_id);
             mRatingBarView = itemView.findViewById(R.id.rating_bar_id);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v)
-                {
-                    Intent intent = new Intent(mContext,DetailActivity.class);
-                    Movie movie = mMovies.get(getAdapterPosition());
-                    intent.putExtra(Intent.EXTRA_INTENT,movie);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mContext.startActivity(intent);
-                }
+            itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(mContext,DetailActivity.class);
+                Movie movie = mMovies.get(getAdapterPosition());
+                intent.putExtra(Intent.EXTRA_INTENT,movie);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
             });
         }
 

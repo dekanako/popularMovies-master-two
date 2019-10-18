@@ -20,7 +20,7 @@ public interface MovieDAO
   void insertMovie(Movie movie);
 
   @Query("SELECT * FROM movie WHERE dbMovieId = :passedId")
-  Movie getMovie(int passedId);
+  LiveData<Movie> getMovie(int passedId);
 
   @Delete
   void deleteMovieFromFavourites(Movie movie);

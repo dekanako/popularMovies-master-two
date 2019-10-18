@@ -1,6 +1,7 @@
 package com.example.android.popularmovies.data.repository;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteConstraintException;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -12,6 +13,7 @@ import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.data.MovieContainer;
 import com.example.android.popularmovies.data.Room.AppDBRoom;
+import com.example.android.popularmovies.data.Room.AppExecutors;
 
 import java.util.List;
 
@@ -33,7 +35,6 @@ public class MoviesRepository {
     public MoviesRepository(AppDBRoom room, MovieApiService movieApiService) {
         mRoom = room;
         mMovieApiService = movieApiService;
-
     }
 
 
@@ -57,7 +58,6 @@ public class MoviesRepository {
         return mutableLiveData;
     }
 
-
     public MutableLiveData<List<Movie>>getTopRatedMovies(String page){
         MutableLiveData<List<Movie>> mutableLiveData = new MutableLiveData<>();
         mMovieApiService.getMovies(MovieApiService.TOP_RATED_PATH,MovieApiService.API_KEY,"1",MovieApiService.ENG_LANG_RESULT).enqueue(new Callback<MovieContainer>() {
@@ -78,7 +78,7 @@ public class MoviesRepository {
         return mRoom.dao().getAllMovie();
     }
 
-    public LiveData<List<Movie>> getOneOfThem(Application application) {
+    public LiveData<List<Movie>> getListOfMoviesWithRespectToUserPreferences(Application application) {
 
         Timber.d("ON OF THEM IS " + QueryPreferences.getStoredTypeOfQuery(application));
 
@@ -90,9 +90,25 @@ public class MoviesRepository {
             return getFavouriteMovies();
         }
     }
-    /**
-     * testing purposes
-     */
 
+    public LiveData<Movie>getFavouriteMovie(int movieId){
+        return mRoom.dao().getMovie(movieId);
+    }
 
+    public void insertFavoriteMovie(Movie movie) {
+        try {
+            AppExecutors.getInstance().diskIO().execute(()-> mRoom.dao().insertMovie(movie) );
+        }catch (SQLiteConstraintException e){
+            Timber.e(e);
+        }
+
+    }
+
+    public void removeFromFavourites(Movie movie) {
+        try {
+            AppExecutors.getInstance().diskIO().execute(()-> mRoom.dao().deleteMovieFromFavourites(movie));
+        }catch (SQLiteConstraintException e){
+            Timber.e(e);
+        }
+    }
 }
