@@ -6,17 +6,14 @@ import android.preference.PreferenceManager;
 
 import timber.log.Timber;
 
-public class QueryPreferences
-{
+public class QueryPreferences {
     private static final String QUERY_KEY = "QUERY";
 
-    public static void setStoredTypeOfQuery(Context context, String passedValue)
-    {
-        Timber.d(passedValue+"QUERY PREF");
+    public static void setStoredTypeOfQuery(Context context, String passedValue) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(QUERY_KEY,passedValue).apply();
     }
-    public static String getStoredTypeOfQuery(Context context)
-    {
+
+    public static String getStoredTypeOfQuery(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(QUERY_KEY,context.getResources().getString(R.string.popular));
     }
 }

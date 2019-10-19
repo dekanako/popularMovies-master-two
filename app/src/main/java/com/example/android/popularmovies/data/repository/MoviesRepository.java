@@ -111,4 +111,22 @@ public class MoviesRepository {
             Timber.e(e);
         }
     }
+
+    public LiveData<Movie> getMovieWithItsTrailer(int movieId) {
+        MutableLiveData<Movie>mutableLiveData = new MutableLiveData<>();
+
+        mMovieApiService.getMovieById(movieId,
+                MovieApiService.API_KEY,
+                MovieApiService.ENG_LANG_RESULT,
+                MovieApiService.VIDEO_APPEND).enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(@NonNull Call<Movie> call, @NonNull Response<Movie> response) {
+                mutableLiveData.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Movie> call, @NonNull Throwable t) { Timber.e(t); }
+        });
+        return mutableLiveData;
+    }
 }

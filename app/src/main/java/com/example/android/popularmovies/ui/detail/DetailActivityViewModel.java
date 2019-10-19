@@ -1,4 +1,4 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.ui.detail;
 
 import android.app.Application;
 
@@ -11,22 +11,26 @@ import com.example.android.popularmovies.di.MoviesApplication;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
 
 public class DetailActivityViewModel extends AndroidViewModel {
 
-    private LiveData<Movie> mMovie;
+    private LiveData<Movie> mMovieInDatabase;
+    private LiveData<Movie> mDetailedMovie;
     @Inject MoviesRepository mRepository;
 
-    public DetailActivityViewModel(Application application, int movie) {
+    public DetailActivityViewModel(Application application, int movieId) {
         super(application);
         ((MoviesApplication)application).getAppComponent().injectDetailActivityViewModel(this);
-        mMovie = mRepository.getFavouriteMovie(movie);
-        Timber.d(" Movie Id is %s", movie);
+        mMovieInDatabase = mRepository.getFavouriteMovie(movieId);
+        mDetailedMovie = mRepository.getMovieWithItsTrailer(movieId);
     }
 
-    public LiveData<Movie> getMovie() {
-        return mMovie;
+    public LiveData<Movie> getMovieInDatabase() {
+        return mMovieInDatabase;
+    }
+
+    public LiveData<Movie> getDetailedMovie() {
+        return mDetailedMovie;
     }
 
     public void insertMovie(Movie movie) {

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.android.popularmovies.Util.NetworkingUtil;
 import com.example.android.popularmovies.Util.StringCheck;
 import com.example.android.popularmovies.data.Movie;
+import com.example.android.popularmovies.ui.detail.DetailActivity;
 
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             mRatingBarView = itemView.findViewById(R.id.rating_bar_id);
 
             itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(mContext,DetailActivity.class);
+                Intent intent = new Intent(mContext, DetailActivity.class);
                 Movie movie = mMovies.get(getAdapterPosition());
                 intent.putExtra(Intent.EXTRA_INTENT,movie);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

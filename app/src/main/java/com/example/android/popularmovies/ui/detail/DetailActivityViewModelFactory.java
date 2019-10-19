@@ -1,4 +1,4 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.ui.detail;
 
 
 import android.app.Application;
@@ -6,6 +6,8 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.example.android.popularmovies.ui.detail.DetailActivityViewModel;
 
 import javax.inject.Inject;
 

@@ -38,7 +38,8 @@ public class Movie implements Parcelable
     private String date;
 
     @Ignore
-    private Trailer[] trailersArray;
+    @SerializedName("videos")
+    private Videos mVideos;
 
     public Movie(String imageLink, String filmTitle, double rating, int dbMovieId, String coverImage, String overView, String date)
     {
@@ -144,13 +145,13 @@ public class Movie implements Parcelable
         return imageLink + " " + filmTitle + " " + getRating() + " " +dbMovieId + "  " + getImageLink() + " " + overView ;
     }
 
-    public Trailer[] getTrailersArray() {
-        return trailersArray;
+    public Videos getVideos() {
+        return mVideos;
     }
 
-    public void setTrailersArray(Trailer[] trailersArray)
+    public void setVideos(Videos videos)
     {
-        this.trailersArray = trailersArray;
+        this.mVideos = videos;
     }
 
     public static Creator<Movie> getCREATOR()
@@ -178,10 +179,10 @@ public class Movie implements Parcelable
 
     public String[] getTrailersNameArray()
     {
-        String []trailersNameArray = new String[trailersArray.length];
-        for (int i = 0;i<trailersArray.length;i++)
+        String []trailersNameArray = new String[mVideos.getArrayOfTrailers().length];
+        for (int i = 0; i< mVideos.getArrayOfTrailers().length; i++)
         {
-            trailersNameArray[i] = trailersArray[i].getTrailerTitle();
+            trailersNameArray[i] = mVideos.getArrayOfTrailers()[i].getTrailerTitle();
 
         }
         return trailersNameArray;

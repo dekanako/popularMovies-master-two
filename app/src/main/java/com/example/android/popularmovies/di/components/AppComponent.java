@@ -3,8 +3,8 @@ package com.example.android.popularmovies.di.components;
 
 import android.app.Application;
 
-import com.example.android.popularmovies.DetailActivity;
-import com.example.android.popularmovies.DetailActivityViewModel;
+import com.example.android.popularmovies.ui.detail.DetailActivity;
+import com.example.android.popularmovies.ui.detail.DetailActivityViewModel;
 import com.example.android.popularmovies.MainActivity;
 import com.example.android.popularmovies.MainActivityViewModel;
 import com.example.android.popularmovies.data.Room.AppDBRoom;
