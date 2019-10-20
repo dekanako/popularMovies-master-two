@@ -1,22 +1,8 @@
 package com.example.android.popularmovies.Util;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Scanner;
-
-import androidx.recyclerview.widget.RecyclerView;
-
-import timber.log.Timber;
 
 public class NetworkingUtil
 {

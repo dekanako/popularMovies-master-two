@@ -12,7 +12,7 @@ import com.example.android.popularmovies.ui.review.ReviewViewModel;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
+
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory{
     private int movieId;

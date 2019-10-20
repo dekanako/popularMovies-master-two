@@ -5,10 +5,8 @@ package com.example.android.popularmovies;
 
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.data.MovieContainer;
-import com.example.android.popularmovies.data.Review;
 import com.example.android.popularmovies.data.ReviewContainer;
 
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

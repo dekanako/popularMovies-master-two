@@ -12,7 +12,6 @@ import com.example.android.popularmovies.QueryPreferences;
 import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.data.MovieContainer;
-import com.example.android.popularmovies.data.Review;
 import com.example.android.popularmovies.data.ReviewContainer;
 import com.example.android.popularmovies.data.Room.AppDBRoom;
 import com.example.android.popularmovies.data.Room.AppExecutors;
@@ -44,7 +43,7 @@ public class MoviesRepository {
 
         MutableLiveData<List<Movie>> mutableLiveData = new MutableLiveData<>();
 
-        mMovieApiService.getMovies(MovieApiService.POPULAR_PATH,MovieApiService.API_KEY,"1",MovieApiService.ENG_LANG_RESULT).enqueue(new Callback<MovieContainer>() {
+        mMovieApiService.getMovies(MovieApiService.POPULAR_PATH,MovieApiService.API_KEY,page,MovieApiService.ENG_LANG_RESULT).enqueue(new Callback<MovieContainer>() {
             @Override
             public void onResponse(@NonNull Call<MovieContainer> call, @NonNull Response<MovieContainer> response) {
                 mutableLiveData.setValue(response.body().getMovieList());
@@ -62,7 +61,7 @@ public class MoviesRepository {
 
     public MutableLiveData<List<Movie>>getTopRatedMovies(String page){
         MutableLiveData<List<Movie>> mutableLiveData = new MutableLiveData<>();
-        mMovieApiService.getMovies(MovieApiService.TOP_RATED_PATH,MovieApiService.API_KEY,"1",MovieApiService.ENG_LANG_RESULT).enqueue(new Callback<MovieContainer>() {
+        mMovieApiService.getMovies(MovieApiService.TOP_RATED_PATH,MovieApiService.API_KEY,page,MovieApiService.ENG_LANG_RESULT).enqueue(new Callback<MovieContainer>() {
             @Override
             public void onResponse(Call<MovieContainer> call, Response<MovieContainer> response) {
                 mutableLiveData.setValue(response.body().getMovieList());
@@ -133,7 +132,6 @@ public class MoviesRepository {
     }
 
     public LiveData<ReviewContainer> getListOfMovieReview(int movieId) {
-        Timber.d(" I D I D "+movieId);
         MutableLiveData<ReviewContainer> mutableLiveData = new MutableLiveData<>();
         mMovieApiService.getReviewsOfAMovie(
                 movieId,

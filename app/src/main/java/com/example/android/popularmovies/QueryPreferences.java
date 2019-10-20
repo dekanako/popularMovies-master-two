@@ -1,10 +1,7 @@
 package com.example.android.popularmovies;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-import timber.log.Timber;
 
 public class QueryPreferences {
     private static final String QUERY_KEY = "QUERY";

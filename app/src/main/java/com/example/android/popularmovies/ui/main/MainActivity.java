@@ -21,7 +21,7 @@ import com.example.android.popularmovies.BuildConfig;
 import com.example.android.popularmovies.QueryPreferences;
 import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.Util.AppUtil;
-import com.example.android.popularmovies.data.Room.AppDBRoom;
+
 
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.di.MoviesApplication;
@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity
 
     private MainActivityViewModel mViewModel;
 
-    @Inject
-    public AppDBRoom mAppDBRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
