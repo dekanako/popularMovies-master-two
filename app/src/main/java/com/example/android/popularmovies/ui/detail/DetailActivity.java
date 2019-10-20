@@ -17,8 +17,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.example.android.popularmovies.Fragments.OverViewFragment;
-import com.example.android.popularmovies.Fragments.ReviewFragment.ReviewFragment;
+import com.example.android.popularmovies.ui.ViewModelFactory;
+import com.example.android.popularmovies.ui.overview.OverViewFragment;
+import com.example.android.popularmovies.ui.review.ReviewFragment;
 import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.Util.NetworkingUtil;
 import com.example.android.popularmovies.data.Movie;
@@ -67,7 +68,7 @@ public class DetailActivity extends AppCompatActivity
         }
 
 
-        DetailActivityViewModelFactory factory = new DetailActivityViewModelFactory(getApplication(),mMovie.getDbMovieId());
+        ViewModelFactory factory = new ViewModelFactory(getApplication(),mMovie.getDbMovieId());
 
         mViewModel = ViewModelProviders.of(this,factory).get(DetailActivityViewModel.class);
 
@@ -85,6 +86,8 @@ public class DetailActivity extends AppCompatActivity
                 invalidateOptionsMenu();
             }
         });
+
+        Timber.d("Is Instance >?"+(mViewModel instanceof DetailActivityViewModel));
     }
 
     private void setClickableOfPlayButton() {

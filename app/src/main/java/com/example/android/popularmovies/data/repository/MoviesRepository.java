@@ -12,6 +12,8 @@ import com.example.android.popularmovies.QueryPreferences;
 import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.data.MovieContainer;
+import com.example.android.popularmovies.data.Review;
+import com.example.android.popularmovies.data.ReviewContainer;
 import com.example.android.popularmovies.data.Room.AppDBRoom;
 import com.example.android.popularmovies.data.Room.AppExecutors;
 
@@ -126,6 +128,26 @@ public class MoviesRepository {
 
             @Override
             public void onFailure(@NonNull Call<Movie> call, @NonNull Throwable t) { Timber.e(t); }
+        });
+        return mutableLiveData;
+    }
+
+    public LiveData<ReviewContainer> getListOfMovieReview(int movieId) {
+        Timber.d(" I D I D "+movieId);
+        MutableLiveData<ReviewContainer> mutableLiveData = new MutableLiveData<>();
+        mMovieApiService.getReviewsOfAMovie(
+                movieId,
+                MovieApiService.API_KEY,
+                MovieApiService.ENG_LANG_RESULT).enqueue(new Callback<ReviewContainer>() {
+            @Override
+            public void onResponse(Call<ReviewContainer> call, Response<ReviewContainer> response) {
+                mutableLiveData.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ReviewContainer> call, Throwable t) {
+                Timber.e(t);
+            }
         });
         return mutableLiveData;
     }

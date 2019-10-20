@@ -1,8 +1,13 @@
 package com.example.android.popularmovies.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Review
 {
+    @SerializedName("author")
     private String mTitle;
+
+    @SerializedName("content")
     private String mReviewContent;
 
     public Review(String mTitle, String mReviewContent) {

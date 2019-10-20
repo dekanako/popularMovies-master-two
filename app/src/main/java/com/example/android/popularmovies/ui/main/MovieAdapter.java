@@ -1,4 +1,4 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.Util.NetworkingUtil;
 import com.example.android.popularmovies.Util.StringCheck;
 import com.example.android.popularmovies.data.Movie;

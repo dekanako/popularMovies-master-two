@@ -1,4 +1,4 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.ui.main;
 
 import android.app.Application;
 import androidx.annotation.NonNull;

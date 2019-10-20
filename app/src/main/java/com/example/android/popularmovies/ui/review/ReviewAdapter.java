@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.Fragments.ReviewFragment;
+package com.example.android.popularmovies.ui.review;
 
 import android.view.LayoutInflater;
 import android.view.View;

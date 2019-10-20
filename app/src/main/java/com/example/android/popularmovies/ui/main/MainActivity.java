@@ -1,4 +1,4 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.ui.main;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,9 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.example.android.popularmovies.BuildConfig;
+import com.example.android.popularmovies.QueryPreferences;
+import com.example.android.popularmovies.R;
 import com.example.android.popularmovies.Util.AppUtil;
 import com.example.android.popularmovies.data.Room.AppDBRoom;
 

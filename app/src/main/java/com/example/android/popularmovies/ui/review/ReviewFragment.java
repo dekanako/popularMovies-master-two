@@ -1,8 +1,7 @@
-package com.example.android.popularmovies.Fragments.ReviewFragment;
+package com.example.android.popularmovies.ui.review;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +11,20 @@ import android.widget.TextView;
 
 
 import com.example.android.popularmovies.R;
-import com.example.android.popularmovies.Util.JsonUtil;
-import com.example.android.popularmovies.Util.NetworkingUtil;
-import com.example.android.popularmovies.data.Review;
 
-import java.io.IOException;
-import java.net.URL;
+import com.example.android.popularmovies.data.Review;
+import com.example.android.popularmovies.ui.ViewModelFactory;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import timber.log.Timber;
 
 public class ReviewFragment extends Fragment
 {
@@ -65,49 +65,28 @@ public class ReviewFragment extends Fragment
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mProgressBar = view.findViewById(R.id.progressBar2);
         mOopsView = view.findViewById(R.id.network_text_view);
+
+        ViewModelFactory factory = new ViewModelFactory(getActivity().getApplication(),mMovieID );
+        ReviewViewModel viewModel = ViewModelProviders.of(this,factory).get(ReviewViewModel.class);
+
         if (isInternetConnection())
         {
-            new ReviewsAsyncTask().execute(mMovieID);
+            viewModel.getReviewsLiveData().observe(this, reviews -> {
+                Timber.d(reviews.getReviews().get(0)+"");
+                showListOfReviews(reviews.getReviews());
+            });
         }
 
         return view;
     }
-    private class ReviewsAsyncTask extends AsyncTask<Integer,Void, List<Review>>
-    {
 
-        @Override
-        protected void onPreExecute()
-        {
-            mRecyclerView.setVisibility(View.INVISIBLE);
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected List<Review> doInBackground(Integer... integers)
-        {
-            URL url = NetworkingUtil.buildReviewURL(integers[0]);
-            String jsonOutput = null;
-            try
-            {
-                jsonOutput = NetworkingUtil.getResponseFromHttpUrlUsingScanner(url);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return JsonUtil.extractMovieReviews(jsonOutput);
-        }
-
-        @Override
-        protected void onPostExecute(List<Review> reviews)
-        {
-            mReviewAdapter = new ReviewAdapter(reviews);
-            mRecyclerView.setAdapter(mReviewAdapter);
-            mProgressBar.setVisibility(View.INVISIBLE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-
-        }
-
+    private void showListOfReviews(List<Review> reviews) {
+        mReviewAdapter = new ReviewAdapter(reviews);
+        mRecyclerView.setAdapter(mReviewAdapter);
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
+
     public  boolean isInternetConnection()
     {
 

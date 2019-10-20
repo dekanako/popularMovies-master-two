@@ -41,6 +41,8 @@ public class Movie implements Parcelable
     @SerializedName("videos")
     private Videos mVideos;
 
+
+
     public Movie(String imageLink, String filmTitle, double rating, int dbMovieId, String coverImage, String overView, String date)
     {
         this.imageLink = imageLink;

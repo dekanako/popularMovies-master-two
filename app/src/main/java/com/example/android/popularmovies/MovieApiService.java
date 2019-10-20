@@ -5,6 +5,8 @@ package com.example.android.popularmovies;
 
 import com.example.android.popularmovies.data.Movie;
 import com.example.android.popularmovies.data.MovieContainer;
+import com.example.android.popularmovies.data.Review;
+import com.example.android.popularmovies.data.ReviewContainer;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ public interface MovieApiService {
     String API_KEY = "90429cbb0771760ab50be543df397f62";
 
     String VIDEO_APPEND = "videos";
+    String REVIEWS_PATH =  "reviews";
 
     @GET("{search_type}")
     Call<MovieContainer> getMovies(@Path("search_type")String searchType,
@@ -38,5 +41,9 @@ public interface MovieApiService {
                             @Query("language")String language,
                             @Query("append_to_response") String videos);
 
+    @GET("{movie_id}/"+REVIEWS_PATH)
+    Call<ReviewContainer> getReviewsOfAMovie(@Path("movie_id")int movieId,
+                                             @Query("api_key")String apiKey,
+                                             @Query("language")String language);
 
 }

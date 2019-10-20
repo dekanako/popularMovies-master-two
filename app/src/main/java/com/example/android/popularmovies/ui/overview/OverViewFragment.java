@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.Fragments;
+package com.example.android.popularmovies.ui.overview;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
